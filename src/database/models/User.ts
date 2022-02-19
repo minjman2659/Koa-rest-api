@@ -15,7 +15,7 @@ function hash(password: string): string {
 }
 
 interface IUser {
-  id: string;
+  id?: string;
   email: string;
   username: string;
   password: string;
@@ -28,7 +28,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     username: string;
     password: string;
     static associate(models: any) {
-      User.hasMany(models.post, {
+      User.hasMany(models.Post, {
         foreignKey: 'fkUserId',
         as: 'posts',
       });
@@ -41,15 +41,15 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.UUID,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        allowNull: false,
       },
-      email: { type: DataTypes.STRING, unique: true, allowNull: false },
-      username: { type: DataTypes.STRING, allowNull: false },
-      password: { type: DataTypes.STRING, allowNull: false },
+      email: { type: DataTypes.STRING, unique: true },
+      username: { type: DataTypes.STRING },
+      password: { type: DataTypes.STRING },
     },
     {
       sequelize,
-      modelName: 'user',
+      modelName: 'User',
+      timestamps: true,
       indexes: [{ fields: ['email'] }],
     },
   );

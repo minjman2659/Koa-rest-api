@@ -1,12 +1,8 @@
-import { Context } from 'koa';
+import dotenv = require('dotenv');
 
-const Koa = require('koa');
-const app = new Koa();
+dotenv.config();
 
-app.use((ctx: Context) => {
-  ctx.body = 'Hello World!';
-});
+import Server from 'server';
+const server: Server = new Server();
 
-app.listen(4000, () => {
-  console.log('Listening to port 4000');
-});
+server.listen(4000);
