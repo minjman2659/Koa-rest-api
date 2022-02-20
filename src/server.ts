@@ -32,6 +32,7 @@ export default class Server {
 
   public routes = (): void => {
     const { router } = this;
+    router.get('/', ctx => (ctx.body = 'Hello Koa!'));
     router.use('/api', api.routes());
     router.get('/ping', ctx => {
       const now = new Date();
