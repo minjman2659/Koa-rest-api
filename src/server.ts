@@ -1,9 +1,8 @@
 import * as Koa from 'koa';
 import * as Router from 'koa-router';
 import * as koaBody from 'koa-body';
-import { format } from 'date-fns';
 
-import db from './database/models';
+import db from 'database';
 import api from 'router';
 
 export default class Server {
@@ -34,12 +33,6 @@ export default class Server {
     const { router } = this;
     router.get('/', ctx => (ctx.body = 'Hello Koa!'));
     router.use('/api', api.routes());
-    router.get('/ping', ctx => {
-      const now = new Date();
-      const time = format(now, 'yyyy-MM-dd HH:mm:ss');
-      const text = `Current Time: ${time}`;
-      ctx.body = text;
-    });
   };
 
   public middleware = (): void => {

@@ -8,7 +8,7 @@ interface IPost {
   thumbnail: string;
 }
 
-module.exports = (sequelize: any, DataTypes: any) => {
+export default (sequelize: any, DataTypes: any) => {
   class Post extends Sequelize.Model<IPost> implements IPost {
     id: string;
     fkUserId: string;

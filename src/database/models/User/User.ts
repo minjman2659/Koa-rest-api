@@ -1,18 +1,4 @@
 import * as Sequelize from 'sequelize';
-import * as crypto from 'crypto';
-
-const { PASSWORD_SALT } = process.env;
-
-if (!PASSWORD_SALT) {
-  throw new Error('MISSING_ENVAR');
-}
-
-function hash(password: string): string {
-  return crypto
-    .createHmac('sha512', PASSWORD_SALT)
-    .update(password)
-    .digest('hex');
-}
 
 interface IUser {
   id?: string;
@@ -21,7 +7,7 @@ interface IUser {
   password: string;
 }
 
-module.exports = (sequelize: any, DataTypes: any) => {
+export default (sequelize: any, DataTypes: any) => {
   class User extends Sequelize.Model<IUser> implements IUser {
     id: string;
     email: string;

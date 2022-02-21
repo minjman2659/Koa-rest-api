@@ -6,10 +6,11 @@
   "author": "minjman",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_PATH=src ts-node src/index.ts",
-    "db:migrate": "NODE_PATH=./src ./scripts/db-migrate.sh",
-    "db:sync": "",
-    "test": ""
+    "start": "cross-env NODE_PATH=src ts-node src/index.ts",
+    "start:dev": "cross-env NODE_PATH=src nodemon --watch 'src/**/*' -e ts,tsx --exec ts-node src/index.ts",
+    "build": "tsc",
+    "dev": "cross-env NODE_PATH=build nodemon build/index.js --watch ./build",
+    "server": "cross-env NODE_PATH=build nodemon build/index.js"
   },
   "dependencies": {
     "cross-env": "^7.0.3",
