@@ -1,6 +1,7 @@
 import * as Koa from 'koa';
 import * as Router from 'koa-router';
 import * as koaBody from 'koa-body';
+import * as cors from '@koa/cors';
 
 import db from 'database';
 import api from 'router';
@@ -38,6 +39,12 @@ export default class Server {
   public middleware = (): void => {
     const { app, router } = this;
     app.use(koaBody());
+    app.use(
+      cors({
+        origin: 'http://localhost:3000',
+        credentials: true,
+      }),
+    );
     app.use(router.routes()).use(router.allowedMethods());
   };
 
