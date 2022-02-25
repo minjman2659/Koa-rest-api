@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 
-const errorHandler = async (ctx: Context, next: any) => {
+const errorHandler = async (ctx: Context, next: () => Promise<any>) => {
   try {
     await next();
     if (ctx.status === 404) {
