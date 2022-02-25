@@ -1,5 +1,6 @@
 import * as Sequelize from 'sequelize';
 import * as crypto from 'crypto';
+import * as _ from 'lodash';
 import { generateToken, IPayload, IOption } from 'lib/token';
 
 interface IUser {
@@ -35,6 +36,7 @@ export default (sequelize: any, DataTypes: any) => {
       originalRefreshToken: any,
     ) => Promise<{ refreshToken: any; accessToken: string }>;
     validatePassword: (password: string) => boolean;
+    toRes: () => any[];
     static associate(models: any) {
       User.hasMany(models.Post, {
         foreignKey: 'fkUserId',
@@ -49,7 +51,7 @@ export default (sequelize: any, DataTypes: any) => {
       transaction,
     }: IUser): Promise<any> {
       try {
-        await User.create(
+        const user = await User.create(
           {
             email,
             password: hash(password),
@@ -57,6 +59,7 @@ export default (sequelize: any, DataTypes: any) => {
           },
           { transaction },
         );
+        return user;
       } catch (err) {
         throw new Error(err);
       }
@@ -65,7 +68,7 @@ export default (sequelize: any, DataTypes: any) => {
     static async checkEmail(email: string): Promise<boolean> {
       try {
         const user = await User.findOne({ where: { email } });
-        return !user ? true : false;
+        return user ? true : false;
       } catch (err) {
         throw new Error(err);
       }
@@ -155,6 +158,11 @@ export default (sequelize: any, DataTypes: any) => {
       throw new Error('PASSWORD REQUIRED');
     }
     return this.password === hashed;
+  };
+
+  User.prototype.toRes = function toRes(): any[] {
+    const userInfo = _.chain(this.toJSON()).omit(['password']).value();
+    return userInfo;
   };
 
   return User;

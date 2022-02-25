@@ -12,9 +12,9 @@ export default class UserCtrl {
         ctx.status = 404;
         return;
       }
-      ctx.body = user;
+      ctx.body = user.toRes();
     } catch (err) {
-      console.log(err);
+      ctx.throw(err);
     }
   };
 }

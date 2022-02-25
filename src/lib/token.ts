@@ -1,3 +1,4 @@
+import { Context } from 'koa';
 import * as jwt from 'jsonwebtoken';
 
 const { SECRET_KEY, CLIENT_HOST, API_HOST } = process.env;
@@ -38,5 +39,23 @@ export const decodeToken = (token: string): Promise<any> => {
       if (err) reject(err);
       resolve(decoded);
     });
+  });
+};
+
+export const setTokenCookie = (ctx: Context, tokens: any): void => {
+  const { accessToken, refreshToken } = tokens;
+
+  ctx.cookies.set('access_token', accessToken, {
+    httpOnly: true,
+    domain: !IS_DEV ? CLIENT_HOST : undefined,
+    maxAge: 1000 * 60 * 60 * 1, // 1 hour
+    secure: !IS_DEV,
+  });
+
+  ctx.cookies.set('refresh_token', refreshToken, {
+    httpOnly: true,
+    domain: !IS_DEV ? CLIENT_HOST : undefined,
+    maxAge: 1000 * 60 * 60 * 24 * 30, // 30 Days
+    secure: !IS_DEV,
   });
 };

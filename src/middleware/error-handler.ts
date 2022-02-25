@@ -16,7 +16,7 @@ const errorHandler = async (ctx: Context, next: () => Promise<any>) => {
     }
   } catch (err) {
     ctx.status = err.status || 500;
-    ctx.body = { message: err.message || err };
+    ctx.body = err.message || err;
     ctx.app.emit('error', err, ctx);
   }
 };
