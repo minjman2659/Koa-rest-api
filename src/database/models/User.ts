@@ -34,7 +34,7 @@ export default (sequelize: any, DataTypes: any) => {
     refreshUserToken: (
       refreshTokenExp: number,
       originalRefreshToken: any,
-    ) => Promise<{ refreshToken: any; accessToken: string }>;
+    ) => Promise<{ refreshToken: any; accessToken: any }>;
     validatePassword: (password: string) => boolean;
     toRes: () => any[];
     static associate(models: any) {

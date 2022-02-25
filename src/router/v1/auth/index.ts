@@ -1,4 +1,5 @@
 import * as Router from 'koa-router';
+import checkAuth from 'middleware/check-auth';
 
 import AuthCtrl from './auth.ctrl';
 
@@ -15,7 +16,7 @@ class AuthRouter {
     auth.post('/register', AuthCtrl.register);
     auth.get('/checkEmail/:email', AuthCtrl.checkEmail);
     auth.post('/login', AuthCtrl.login);
-    auth.post('/logout', AuthCtrl.logout);
+    auth.post('/logout', checkAuth, AuthCtrl.logout);
   };
 }
 

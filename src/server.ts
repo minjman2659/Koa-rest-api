@@ -7,6 +7,7 @@ import * as Boom from 'boom';
 import db from 'database';
 import api from 'router';
 import logger from 'lib/logger';
+import consumeToken from 'middleware/consume-token';
 import errorHandler from 'middleware/error-handler';
 
 export default class Server {
@@ -48,6 +49,7 @@ export default class Server {
         credentials: true,
       }),
     );
+    app.use(consumeToken);
     app.use(errorHandler);
     // router.routes(): 요청된 URL과 일치하는 라우터를 리턴하는 미들웨어
     // router.allowedMethods(): OPTIONS 요청에 응답하고, 405(Method Not Allowed)와 501(Not Implemented)를 응답하는 별도의 미들웨어

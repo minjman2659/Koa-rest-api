@@ -1,4 +1,5 @@
 import * as Router from 'koa-router';
+import checkAuth from 'middleware/check-auth';
 
 import UserCtrl from './users.ctrl';
 
@@ -12,7 +13,7 @@ class UserRouter {
 
   public routes = () => {
     const { users } = this;
-    users.get('/:userId', UserCtrl.getUser);
+    users.get('/:userId', checkAuth, UserCtrl.getUser);
   };
 }
 
