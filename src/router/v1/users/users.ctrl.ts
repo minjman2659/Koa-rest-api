@@ -6,6 +6,12 @@ const { User } = db;
 export default class UserCtrl {
   static getUser = async (ctx: Context) => {
     const { userId } = ctx.params;
+    if (!userId) {
+      ctx.status = 400;
+      ctx.body = 'BAD_REQUEST';
+      return;
+    }
+
     try {
       const user = await User.findByPk(userId);
       if (!user) {
