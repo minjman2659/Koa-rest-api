@@ -1,6 +1,5 @@
 import { Context } from 'koa';
 import * as Joi from 'joi';
-import * as _ from 'lodash';
 import db from 'database';
 
 import { loginSchema, registerSchema, emailSchema } from './schema';
@@ -23,7 +22,7 @@ export default class AuthCtrl {
     );
     if (result.error) {
       ctx.status = 400;
-      ctx.body = 'WRONG_SCHEMA';
+      ctx.body = result.error.details[0].message;
       return;
     }
 
@@ -71,7 +70,7 @@ export default class AuthCtrl {
     );
     if (result.error) {
       ctx.status = 400;
-      ctx.body = 'WRONG_EMAIL';
+      ctx.body = result.error.details[0].message;
       return;
     }
     const { email } = ctx.params;
@@ -95,7 +94,7 @@ export default class AuthCtrl {
     );
     if (result.error) {
       ctx.status = 400;
-      ctx.body = 'WRONG_SCHEMA';
+      ctx.body = result.error.details[0].message;
     }
 
     const { email, password }: ILoginBody = ctx.request.body;

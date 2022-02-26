@@ -10,6 +10,7 @@ export default class UserCtrl {
       const user = await User.findByPk(userId);
       if (!user) {
         ctx.status = 404;
+        ctx.body = 'NOT_FOUND_USER';
         return;
       }
       ctx.body = user.toRes();

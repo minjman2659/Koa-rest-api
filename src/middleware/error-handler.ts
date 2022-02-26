@@ -12,7 +12,8 @@ const errorHandler = async (ctx: Context, next: () => Promise<any>) => {
       }
       const isContent = url.includes('/images');
       const message = isContent ? 'NOT_FOUND' : 'MISSING_PATH';
-      ctx.throw(404, message);
+      const body = ctx.body ? ctx.body : message;
+      ctx.throw(404, body);
     }
   } catch (err) {
     ctx.status = err.status || 500;

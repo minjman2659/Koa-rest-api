@@ -1,6 +1,7 @@
 import * as Router from 'koa-router';
 
 import auth from './auth';
+import posts from './posts';
 import users from './users';
 
 export class ApiRouter {
@@ -14,6 +15,7 @@ export class ApiRouter {
   public routes = () => {
     const { api } = this;
     api.use('/auth', auth.routes());
+    api.use('/posts', posts.routes());
     api.use('/users', users.routes());
   };
 }

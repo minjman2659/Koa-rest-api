@@ -12,7 +12,7 @@ const refresh = async (ctx: Context, refreshToken: string) => {
       throw new Error('INVALID_USER');
     }
 
-    const tokens = (await user).refreshUserToken(decoded.exp, refreshToken);
+    const tokens = await user.refreshUserToken(decoded.exp, refreshToken);
     setTokenCookie(ctx, tokens);
 
     return user;

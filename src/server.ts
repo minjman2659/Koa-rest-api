@@ -57,9 +57,9 @@ export default class Server {
       router.allowedMethods({
         throw: true,
         // boom 모듈을 이용해 405, 501 에러 처리
-        notImplemented: () => Boom.notImplemented('that method is not allowed'),
+        notImplemented: () => Boom.notImplemented('That method is not allowed'),
         methodNotAllowed: () =>
-          Boom.methodNotAllowed('that method is not allowed'),
+          Boom.methodNotAllowed('That method is not allowed'),
       }),
     );
   };
@@ -67,7 +67,7 @@ export default class Server {
   public listen = (port: number): void => {
     const { app } = this;
     app.on('error', (err, ctx) => {
-      logger.error(`server error : ${ctx.status} / ${err.message}`);
+      logger.error(`server error : ${ctx.status} / ${err}`);
     });
     app.listen(port, () => {
       logger.info(`server is running, port number is ${port}`);
