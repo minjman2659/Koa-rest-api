@@ -2,14 +2,21 @@ import * as Koa from 'koa';
 import * as Router from 'koa-router';
 import * as koaBody from 'koa-body';
 import * as cors from '@koa/cors';
+import * as serve from 'koa-static';
 import * as Boom from 'boom';
 
 import db from 'database';
 import api from 'router';
 import logger from 'lib/logger';
+import imagesDir from 'lib/images-dir';
 import consumeToken from 'middleware/consume-token';
 import errorHandler from 'middleware/error-handler';
 
+const { CLIENT_HOST } = process.env;
+
+if (!CLIENT_HOST) {
+  throw new Error('MISSING_ENVAR');
+}
 export default class Server {
   public app: Koa;
   public router: Router;
@@ -37,15 +44,16 @@ export default class Server {
   public routes = (): void => {
     const { router } = this;
     router.get('/', ctx => (ctx.body = 'Hello Koa!'));
+    router.use('/images', serve(imagesDir));
     router.use('/api', api.routes());
   };
 
   public middleware = (): void => {
     const { app, router } = this;
-    app.use(koaBody({ jsonLimit: '40mb' }));
+    app.use(koaBody({ jsonLimit: '40mb', multipart: true }));
     app.use(
       cors({
-        origin: 'http://localhost:3000',
+        origin: CLIENT_HOST || 'http://localhost:3000',
         credentials: true,
       }),
     );
@@ -67,6 +75,8 @@ export default class Server {
   public listen = (port: number): void => {
     const { app } = this;
     app.on('error', (err, ctx) => {
+      const message = err.stack || err;
+      console.error(message);
       logger.error(`server error : ${ctx.status} / ${err}`);
     });
     app.listen(port, () => {
