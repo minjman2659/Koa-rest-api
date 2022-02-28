@@ -17,6 +17,7 @@ const { CLIENT_HOST } = process.env;
 if (!CLIENT_HOST) {
   throw new Error('MISSING_ENVAR');
 }
+
 export default class Server {
   public app: Koa;
   public router: Router;
