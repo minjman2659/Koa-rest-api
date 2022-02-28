@@ -53,7 +53,7 @@ export default class Server {
     app.use(koaBody({ jsonLimit: '40mb', multipart: true }));
     app.use(
       cors({
-        origin: CLIENT_HOST || 'http://localhost:3000',
+        origin: CLIENT_HOST || 'true',
         credentials: true,
       }),
     );
