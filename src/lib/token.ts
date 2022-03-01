@@ -48,14 +48,14 @@ export const setTokenCookie = (ctx: Context, tokens: any): void => {
   ctx.cookies.set('access_token', accessToken, {
     httpOnly: true,
     domain: !IS_DEV ? CLIENT_HOST : undefined,
-    maxAge: 1000 * 60 * 60 * 1, // 1 hour
+    maxAge: 60 * 60 * 1, // 1 hour
     secure: !IS_DEV,
   });
 
   ctx.cookies.set('refresh_token', refreshToken, {
     httpOnly: true,
     domain: !IS_DEV ? CLIENT_HOST : undefined,
-    maxAge: 1000 * 60 * 60 * 24 * 30, // 30 Days
+    maxAge: 60 * 60 * 24 * 30, // 30 Days
     secure: !IS_DEV,
   });
 };
