@@ -109,7 +109,7 @@ export default class AuthCtrl {
     }
 
     if (!user) {
-      ctx.status = 401;
+      ctx.status = 404;
       ctx.body = 'NOT_FOUND_USER';
       return;
     }
