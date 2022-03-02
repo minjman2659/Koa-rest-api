@@ -1,5 +1,5 @@
 import * as Router from 'koa-router';
-import checkAuth from 'middleware/check-auth';
+import { checkAuth } from 'middleware';
 
 import AuthCtrl from './auth.ctrl';
 

@@ -9,8 +9,7 @@ import db from 'database';
 import api from 'router';
 import logger from 'lib/logger';
 import imagesDir from 'lib/images-dir';
-import consumeToken from 'middleware/consume-token';
-import errorHandler from 'middleware/error-handler';
+import { consumeToken, errorHandler } from 'middleware';
 
 const { CLIENT_HOST } = process.env;
 
