@@ -1,3 +1,5 @@
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+
 const testModulePath = [
   '**/auth/*',
   // Add something
@@ -6,14 +8,15 @@ const testModulePath = [
 const addExtname = ext => testModulePath.map(path => `${path}${ext}`);
 
 module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
   globals: {
     'ts-jest': {
-      tsConfigFile: 'tsconfig.json',
+      tsconfig: 'tsconfig.json',
     },
   },
   collectCoverage: true,
   coveragePathIgnorePatterns: ['node_modules', 'migrations'],
-  testEnvironment: 'node',
   modulePaths: ['./src'], // NODE_PATH=.
   setupFiles: ['./jest.setup.js'],
   collectCoverageFrom: addExtname('.ctrl.ts'), // coverage는 ts 파일 기준

@@ -1,9 +1,14 @@
 import * as request from 'supertest';
+import * as http from 'http';
 
 import Server from 'server';
 import { mockUser } from 'test/mock';
 import { generateToken, validateSchema } from 'test/helper';
 import loginSchema from './schema';
+
+const server = new Server();
+const { app } = server;
+const appTest = request(http.createServer(app.callback()));
 
 interface IMockPayload {
   email: string;
@@ -26,15 +31,15 @@ describe('/api/v1/auth', () => {
     user = mock.user;
   });
   it('[POST] /register', async () => {
-    const { statusCode } = await request(Server)
+    const { statusCode } = await appTest
       .post('/api/v1/auth/register')
       .send(payload);
 
     expect(statusCode).toBe(201);
   });
   it('[GET] /checkEmail/:email', async () => {
-    const { email } = user;
-    const { statusCode } = await request(Server).get(
+    const email = 'test@gmail.com';
+    const { statusCode } = await appTest.get(
       `/api/v1/auth/checkEmail/${email}`,
     );
 
@@ -42,7 +47,7 @@ describe('/api/v1/auth', () => {
   });
   it('[POST] /login', async () => {
     const { email } = user;
-    const { statusCode, body } = await request(Server)
+    const { statusCode, body } = await appTest
       .post('/api/v1/auth/login')
       .send({ email, password: 'password' });
 
@@ -51,7 +56,7 @@ describe('/api/v1/auth', () => {
   });
   it('[POST] /logout', async () => {
     const { token } = await generateToken(user.email);
-    const { statusCode } = await request(Server)
+    const { statusCode } = await appTest
       .post('/api/v1/auth/logout')
       .set('Cookie', token);
 
