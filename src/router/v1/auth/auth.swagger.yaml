@@ -1,0 +1,109 @@
+swagger: '1.0.0'
+info:
+  title: 'Auth'
+  version: 1.0.0
+paths:
+  /api/v1/auth/register:
+    post:
+      summary: '회원가입'
+      tags: [Auth]
+      description: '유저 회원가입'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: 'test@gmail.com'
+                username:
+                  type: string
+                  example: '홍길동'
+                password:
+                  type: string
+                  example: 'password'
+      responses:
+        '201':
+          description: 'Created'
+        '400':
+          description: 'Schema 에러'
+        '409':
+          description: 'EXISTED_USER : 이미 유저가 존재할 경우(email 기준)'
+paths:
+  /api/v1/auth/checkEmail/{email}:
+    get:
+      summary: '이메일 중복 체크'
+      tags: [Auth]
+      description: '이메일 중복 체크'
+      parameters:
+        - name: 'email'
+          in: 'path'
+          description: '중복 체크할 유저 email'
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: 'OK : 중복되지 않는 email로, 사용 가능한 경우'
+        '400':
+          description: 'Schema 에러'
+        '409':
+          description: 'EXISTED_EMAIL : email이 중복될 경우'
+paths:
+  /api/v1/auth/login:
+    post:
+      summary: '로그인'
+      tags: [Auth]
+      description: '유저 로그인'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: 'test@gmail.com'
+                password:
+                  type: string
+                  example: 'password'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  example: '7682de9a-4703-4b47-8b26-2d093e46ecc5'
+                email:
+                  type: string
+                  example: 'test@gmail.com'
+                username:
+                  type: string
+                  example: '홍길동'
+                createdAt:
+                  type: datetime
+                  example: '2022-03-02T11:59:55.561Z'
+                updatedAt:
+                  type: datetime
+                  example: '2022-03-02T11:59:55.561Z'
+        '400':
+          description: 'Schema 에러'
+        '404':
+          description: 'NOT_FOUND_USER : 유저가 존재하지 않는 경우'
+        '403':
+          description: 'WRONG_PASSWORD : 패스워드가 틀렸을 경우'
+paths:
+  /api/v1/auth/logout:
+    post:
+      summary: '로그아웃'
+      tags: [Auth]
+      description: '유저 로그아웃'
+      responses:
+        '200':
+          description: 'OK'
