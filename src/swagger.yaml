@@ -1,0 +1,340 @@
+openapi: '3.0.0'
+info:
+  title: 'koa-rest-api-sample'
+  version: 1.0.0
+paths:
+  /api/v1/auth/register:
+    post:
+      summary: '회원가입'
+      tags: [Auth]
+      description: '유저 회원가입'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: 'test@gmail.com'
+                username:
+                  type: string
+                  example: '홍길동'
+                password:
+                  type: string
+                  example: 'password'
+      responses:
+        '201':
+          description: 'Created'
+        '400':
+          description: 'Schema 에러'
+        '409':
+          description: 'EXISTED_USER : 이미 유저가 존재할 경우(email 기준)'
+  /api/v1/auth/checkEmail/{email}:
+    get:
+      summary: '이메일 중복 체크'
+      tags: [Auth]
+      description: '이메일 중복 체크'
+      parameters:
+        - name: 'email'
+          in: 'path'
+          description: '중복 체크할 유저 email'
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: 'OK : 중복되지 않는 email로, 사용 가능한 경우'
+        '400':
+          description: 'Schema 에러'
+        '409':
+          description: 'EXISTED_EMAIL : email이 중복될 경우'
+  /api/v1/auth/login:
+    post:
+      summary: '로그인'
+      tags: [Auth]
+      description: '유저 로그인'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: 'test@gmail.com'
+                password:
+                  type: string
+                  example: 'password'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    format: uuid
+                    example: '7682de9a-4703-4b47-8b26-2d093e46ecc5'
+                  email:
+                    type: string
+                    example: 'test@gmail.com'
+                  username:
+                    type: string
+                    example: '홍길동'
+                  createdAt:
+                    format: datetime
+                    example: '2022-03-02T11:59:55.561Z'
+                  updatedAt:
+                    format: datetime
+                    example: '2022-03-02T11:59:55.561Z'
+        '400':
+          description: 'Schema 에러'
+        '404':
+          description: 'NOT_FOUND_USER : 유저가 존재하지 않는 경우'
+        '403':
+          description: 'WRONG_PASSWORD : 패스워드가 틀렸을 경우'
+  /api/v1/auth/logout:
+    post:
+      summary: '로그아웃'
+      tags: [Auth]
+      description: '유저 로그아웃'
+      responses:
+        '200':
+          description: 'OK'
+  /api/v1/posts:
+    post:
+      summary: '포스트 생성'
+      tags: [Post]
+      description: '포스트 생성'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: '제목 테스트'
+                content:
+                  type: string
+                  example: '내용 테스트'
+                thumbnail:
+                  type: string
+                  example: 'test.jpg'
+      responses:
+        '201':
+          description: 'Created'
+        '400':
+          description: 'Schema 에러'
+    get:
+      summary: '포스트 리스트 조회하기'
+      tags: [Post]
+      description: '포스트 리스트 조회'
+      parameters:
+        - name: 'page'
+          in: 'query'
+          description: '조회할 포스트 페이지'
+          required: true
+          schema:
+            type: integer
+        - name: 'limit'
+          in: 'query'
+          description: '조회할 포스트 개수'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'OK : postList와 count(DB 내 포스트 총 개수) 리턴'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  postList:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          format: uuid
+                          example: '7682de9a-4703-4b47-8b26-2d093e46ecc5'
+                        title:
+                          type: string
+                          example: '제목 테스트'
+                        content:
+                          type: string
+                          example: '내용 테스트'
+                        thumbnail:
+                          type: string
+                          example: '썸네일 테스트'
+                        createdAt:
+                          format: datetime
+                          example: '2022-02-26T06:00:22.856Z'
+                        updatedAt:
+                          format: datetime
+                          example: '2022-02-26T06:00:22.856Z'
+                        writer:
+                          type: object
+                          properties:
+                            id:
+                              format: uuid
+                              example: '9def2537-8a86-48f6-9135-3fef9633a81c'
+                            username:
+                              type: string
+                              example: '홍길동'
+                            email:
+                              type: string
+                              example: 'test@gmail.com'
+                  count:
+                    type: integer
+                    example: 10
+        '400':
+          description: 'Schema 에러'
+  /api/v1/posts/{postId}:
+    get:
+      summary: '포스트 단일 조회하기'
+      tags: [Post]
+      description: '포스트 단일 조회'
+      parameters:
+        - name: 'postId'
+          in: 'path'
+          description: '조회할 포스트의 id'
+          required: true
+          schema:
+            format: uuid
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    format: uuid
+                    example: '7682de9a-4703-4b47-8b26-2d093e46ecc5'
+                  title:
+                    type: string
+                    example: '제목 테스트'
+                  content:
+                    type: string
+                    example: '내용 테스트'
+                  thumbnail:
+                    type: string
+                    example: '썸네일 테스트'
+                  createdAt:
+                    format: datetime
+                    example: '2022-02-26T06:00:22.856Z'
+                  updatedAt:
+                    format: datetime
+                    example: '2022-02-26T06:00:22.856Z'
+                  writer:
+                    type: object
+                    properties:
+                      id:
+                        format: uuid
+                        example: '9def2537-8a86-48f6-9135-3fef9633a81c'
+                      username:
+                        type: string
+                        example: '홍길동'
+                      email:
+                        type: string
+                        example: 'test@gmail.com'
+        '400':
+          description: 'BAD_REQUEST : postId가 없을 경우'
+        '404':
+          description: 'NOT_FOUND_POST : 해당되는 post가 없거나, 내가 작성한 post가 아닐 경우'
+    patch:
+      summary: '포스트 수정하기'
+      tags: [Post]
+      description: '포스트 수정'
+      parameters:
+        - name: 'postId'
+          in: 'path'
+          description: '수정할 포스트의 id'
+          required: true
+          schema:
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: '제목 수정 테스트'
+                content:
+                  type: string
+                  example: '내용 수정 테스트'
+                thumbnail:
+                  type: string
+                  example: 'test.jpeg'
+      responses:
+        '200':
+          description: 'OK'
+        '400':
+          description: 'BAD_REQUEST : postId가 없을 경우 / Schema 에러'
+        '404':
+          description: 'NOT_FOUND_POST : 해당되는 post가 없거나, 내가 작성한 post가 아닐 경우'
+    delete:
+      summary: '포스트 삭제하기'
+      tags: [Post]
+      description: '포스트 삭제'
+      parameters:
+        - name: 'postId'
+          in: 'path'
+          description: '삭제할 포스트의 id'
+          required: true
+          schema:
+            format: uuid
+      responses:
+        '200':
+          description: 'OK'
+        '400':
+          description: 'BAD_REQUEST : postId가 없을 경우'
+        '404':
+          description: 'NOT_FOUND_POST : 해당되는 post가 없거나, 내가 작성한 post가 아닐 경우'
+  /api/v1/users/{userId}:
+    get:
+      summary: '유저 조회하기'
+      tags: [User]
+      description: '유저 조회'
+      parameters:
+        - name: 'userId'
+          in: 'path'
+          description: '조회할 유저의 id'
+          required: true
+          schema:
+            format: uuid
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    format: uuid
+                    example: '9def2537-8a86-48f6-9135-3fef9633a81c'
+                  email:
+                    type: string
+                    example: 'test@gmail.com'
+                  username:
+                    type: string
+                    example: '홍길동'
+                  createdAt:
+                    format: datetime
+                    example: '2022-02-26T06:00:22.856Z'
+                  updatedAt:
+                    format: datetime
+                    example: '2022-02-26T06:00:22.856Z'
+        '400':
+          description: 'BAD_REQUEST : userId가 없을 경우'
+        '404':
+          description: 'NOT_FOUND_USER : 유저가 없을 경우'

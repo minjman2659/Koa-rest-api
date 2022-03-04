@@ -4,12 +4,18 @@ import * as koaBody from 'koa-body';
 import * as cors from '@koa/cors';
 import * as serve from 'koa-static';
 import * as Boom from 'boom';
+import * as swagger from 'swagger2';
+import { ui } from 'swagger2-koa';
 
 import db from 'database';
 import api from 'router';
 import logger from 'lib/logger';
 import imagesDir from 'lib/images-dir';
 import { consumeToken, errorHandler } from 'middleware';
+
+const swaggerDocument = swagger.loadDocumentSync(
+  __dirname + '/swagger.yaml',
+) as any;
 
 const { CLIENT_HOST } = process.env;
 
@@ -58,6 +64,9 @@ export default class Server {
       }),
     );
     app.use(consumeToken);
+    if (process.env.NODE_ENV !== 'production') { // 실서버가 아닌 경우에만 Swagger 문서 확인 가능
+      app.use(ui(swaggerDocument, '/swagger'));
+    }
     app.use(errorHandler);
     // router.routes(): 요청된 URL과 일치하는 라우터를 리턴하는 미들웨어
     // router.allowedMethods(): OPTIONS 요청에 응답하고, 405(Method Not Allowed)와 501(Not Implemented)를 응답하는 별도의 미들웨어
