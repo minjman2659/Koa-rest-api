@@ -45,7 +45,7 @@ export default (sequelize: any, DataTypes: any) => {
       sequelize,
       modelName: 'Post',
       timestamps: true,
-      indexes: [{ fields: ['userId'] }],
+      indexes: [{ fields: ['id', 'userId'] }],
     },
   );
 
