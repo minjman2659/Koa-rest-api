@@ -17,6 +17,32 @@ Koa, Typescript, Sequelize, PostgreSQL, JWT
 
 <br />
 
+## 🔖 환경 설정
+
+.env.example을 참고하여 실행할 환경에 따라 .env.development 또는 .env.production으로 파일명 변경
+
+```javascript
+# server
+PORT=something // 서버 실행 포트 넘버
+API_HOST=something // API 실행 URL
+CLIENT_HOST=something // 클라이언트 실행 URL
+
+# auth
+SECRET_KEY=something // JWT를 이용하여 토큰을 생성할때 사용할 Key값
+PASSWORD_SALT=something // 패스워드 암호화시 필요한 Salt값
+
+# environment
+NODE_ENV=something // 실행 환경
+
+# database
+POSTGRES_DATABASE=something // 데이터베이스 이름
+POSTGRES_HOST=something // 데이터베이스 주소
+POSTGRES_USER=something // 데이터베이스 관리자 이름
+POSTGRES_PW=somethings // 데이터베이스 관리자 비밀번호
+```
+
+<br />
+
 ## 📌 실행 방법
 
 Node 16 혹은 그 이상의 버전을 필요로 합니다.
