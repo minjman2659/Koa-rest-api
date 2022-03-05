@@ -62,7 +62,7 @@ Node 16 혹은 그 이상의 버전을 필요로 합니다.
 ### Test
 
 ```javascript
-  yarn test // run jest
+ - yarn test // run jest
 ```
 
 <br />
