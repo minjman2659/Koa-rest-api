@@ -21,7 +21,7 @@ export default class UserCtrl {
       }
       ctx.body = user.toRes();
     } catch (err) {
-      ctx.throw(err);
+      ctx.throw(500, err);
     }
   };
 }
