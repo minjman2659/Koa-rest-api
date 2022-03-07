@@ -1,6 +1,6 @@
-# koa-rest-api-sample
+# koa-rest-api
 
-NodeJS의 프레임워크 Koa를 활용한 REST API sample <br />
+NodeJS의 프레임워크 Koa를 활용한 REST API <br />
 
 ### [Why Koa?](https://koajs.com/)
 
@@ -51,6 +51,7 @@ Node 16 혹은 그 이상의 버전을 필요로 합니다.
  - yarn // install dependencies
  - yarn start 또는 yarn start:dev // run server
 ```
+
 ### Build
 
 타입스크립트 컴파일링
@@ -59,6 +60,7 @@ Node 16 혹은 그 이상의 버전을 필요로 합니다.
  - yarn build // compile typescript
  - yarn dev 또는 yarn server // run compiled javascript
 ```
+
 ### Test
 
 ```javascript
@@ -72,4 +74,4 @@ Node 16 혹은 그 이상의 버전을 필요로 합니다.
 yarn 으로 필요한 패키지 설치 진행 후 <br />
 http://localhost:4000/swagger 주소 입력
 
-![image](https://user-images.githubusercontent.com/81504356/156885127-96af7793-0b03-468a-8d0d-e7092395e787.png)
+![image](https://media.discordapp.net/attachments/885202056355397686/950344083602276413/unknown.png?width=549&height=549)

@@ -1,7 +1,7 @@
 {
-  "name": "koa-rest-api-sample",
+  "name": "koa-rest-api",
   "version": "1.0.0",
-  "description": "koa-rest-api-sample",
+  "description": "koa-rest-api",
   "main": "index.js",
   "author": "minjman",
   "license": "MIT",
