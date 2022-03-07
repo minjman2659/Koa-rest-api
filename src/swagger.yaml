@@ -338,3 +338,16 @@ paths:
           description: 'BAD_REQUEST : userId가 없을 경우'
         '404':
           description: 'NOT_FOUND_USER : 유저가 없을 경우'
+  /api/ping:
+    get:
+      summary: 'Ping'
+      tags: [Ping]
+      description: 'Ping'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: string
+                example: 'Current Time: 2022-03-07 21:23:08'
