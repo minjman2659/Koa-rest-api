@@ -1,12 +1,5 @@
 import * as Sequelize from 'sequelize';
-
-interface IPost {
-  id?: string;
-  fkUserId: string;
-  title: string;
-  content: string;
-  thumbnail: string;
-}
+import { IPost } from 'types/post';
 
 export default (sequelize: any, DataTypes: any) => {
   class Post extends Sequelize.Model<IPost> implements IPost {

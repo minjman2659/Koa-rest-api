@@ -1,20 +1,10 @@
 import { Context } from 'koa';
 import * as jwt from 'jsonwebtoken';
+import { IPayload, IOption } from 'types/token';
 
 const { SECRET_KEY, CLIENT_HOST, API_HOST } = process.env;
 
 const IS_DEV: boolean = process.env.NODE_ENV !== 'production';
-
-export interface IPayload {
-  id: string;
-  username: string;
-  email: string;
-}
-
-export interface IOption {
-  subject: string;
-  expiresIn: string;
-}
 
 export const generateToken = (
   payload: IPayload,

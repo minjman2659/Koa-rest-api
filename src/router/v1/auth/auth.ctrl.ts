@@ -2,18 +2,10 @@ import { Context } from 'koa';
 import * as Joi from 'joi';
 import db from 'database';
 
+import { ILoginBody, IRegisterBody } from 'types/user';
 import { loginSchema, registerSchema, emailSchema } from './schema';
 import { setTokenCookie } from 'lib/token';
 const { User } = db;
-
-interface ILoginBody {
-  email: string;
-  password: string;
-}
-
-interface IRegisterBody extends ILoginBody {
-  username: string;
-}
 
 export default class AuthCtrl {
   static register = async (ctx: Context) => {
@@ -73,6 +65,7 @@ export default class AuthCtrl {
       ctx.body = result.error.details[0].message;
       return;
     }
+
     const { email } = ctx.params;
     try {
       const isExisted = await User.checkEmail(email);

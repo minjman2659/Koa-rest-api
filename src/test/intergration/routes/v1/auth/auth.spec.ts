@@ -2,6 +2,7 @@ import * as request from 'supertest';
 import * as http from 'http';
 
 import Server from 'server';
+import { IRegisterBody } from 'types/user';
 import { mockUser } from 'test/mock';
 import { generateToken, validateSchema } from 'test/helper';
 import loginSchema from './schema';
@@ -10,20 +11,14 @@ const server = new Server();
 const { app } = server;
 const appTest = request(http.createServer(app.callback()));
 
-interface IMockPayload {
-  email: string;
-  username: string;
-  password: string;
-}
-
-interface IUser extends IMockPayload {
+interface IUser extends IRegisterBody {
   id: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 describe('/api/v1/auth', () => {
-  let payload: IMockPayload = null;
+  let payload: IRegisterBody = null;
   let user: IUser = null;
   beforeEach(async () => {
     const mock = await mockUser();

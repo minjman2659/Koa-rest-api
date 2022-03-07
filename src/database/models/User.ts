@@ -1,15 +1,9 @@
 import * as Sequelize from 'sequelize';
 import * as crypto from 'crypto';
 import * as _ from 'lodash';
-import { generateToken, IPayload, IOption } from 'lib/token';
-
-interface IUser {
-  id?: string;
-  email: string;
-  username: string;
-  password: string;
-  transaction?: any;
-}
+import { generateToken } from 'lib/token';
+import { IPayload, IOption } from 'types/token';
+import { IUser } from 'types/user';
 
 const { PASSWORD_SALT } = process.env;
 

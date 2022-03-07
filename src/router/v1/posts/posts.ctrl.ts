@@ -3,13 +3,8 @@ import * as Joi from 'joi';
 import db from 'database';
 
 import { createAndUpdateSchema, getQuerySchema } from './schema';
+import { IPostBody } from 'types/post';
 const { Post, User } = db;
-
-interface IPostBody {
-  title: string;
-  content: string;
-  thumbnail: string;
-}
 
 export default class PostCtrl {
   static createPost = async (ctx: Context) => {
