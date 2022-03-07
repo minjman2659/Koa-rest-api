@@ -88,6 +88,7 @@ export default class AuthCtrl {
     if (result.error) {
       ctx.status = 400;
       ctx.body = result.error.details[0].message;
+      return;
     }
 
     const { email, password }: ILoginBody = ctx.request.body;

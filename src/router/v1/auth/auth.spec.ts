@@ -37,7 +37,6 @@ describe('/api/v1/auth', () => {
         User.register = jest.fn().mockResolvedValue(existedUser);
         await register(ctx);
         expect(ctx.status).toBe(201);
-        expect(ctx.response._isEndCalled()).toBe(true);
       });
     });
     describe('[Failure]', () => {
@@ -45,13 +44,11 @@ describe('/api/v1/auth', () => {
         ctx.request.body.email = null;
         await register(ctx);
         expect(ctx.status).toBe(400);
-        expect(ctx.response._isEndCalled()).toBe(true);
       });
       it('should return 409 status code in response', async () => {
         User.findOne = jest.fn().mockResolvedValue(existedUser);
         await register(ctx);
         expect(ctx.status).toBe(409);
-        expect(ctx.response._isEndCalled()).toBe(true);
       });
       it('should handle error: User.findOne', async () => {
         const errorMessage = { message: 'throw User.findOne error' };
@@ -86,7 +83,6 @@ describe('/api/v1/auth', () => {
         loggedUser.validatePassword.mockReturnValue(true);
         await login(ctx);
         expect(ctx.status).toBe(200);
-        expect(ctx.response._isEndCalled()).toBe(true);
       });
     });
     describe('[Failure]', () => {
@@ -94,7 +90,6 @@ describe('/api/v1/auth', () => {
         ctx.request.body.email = null;
         await login(ctx);
         expect(ctx.status).toBe(400);
-        expect(ctx.response._isEndCalled()).toBe(true);
       });
       it('should handle error: User.findOne', async () => {
         const errorMessage = { message: 'throw User.findOne' };
@@ -106,14 +101,12 @@ describe('/api/v1/auth', () => {
         User.findOne = jest.fn().mockResolvedValue(null);
         await login(ctx);
         expect(ctx.status).toBe(404);
-        expect(ctx.response._isEndCalled()).toBe(true);
       });
       it('should return 403 statusCode code in response', async () => {
         User.findOne = jest.fn().mockResolvedValue(loggedUser);
         loggedUser.validatePassword.mockReturnValue(false);
         await login(ctx);
         expect(ctx.status).toBe(403);
-        expect(ctx.response._isEndCalled()).toBe(true);
       });
       it('should handle error, user.validatePassword', async () => {
         const error = new Error('throw user.validatePassword');
@@ -134,7 +127,6 @@ describe('/api/v1/auth', () => {
       it('should return 200 status code in response', async () => {
         await logout(ctx);
         expect(ctx.statusCode).toBe(200);
-        expect(ctx.response._isEndCalled()).toBe(true);
       });
     });
   });
