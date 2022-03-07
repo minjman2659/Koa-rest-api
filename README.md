@@ -57,8 +57,8 @@ Node 16 혹은 그 이상의 버전을 필요로 합니다.
 타입스크립트 컴파일링
 
 ```javascript
- - yarn build // compile typescript
- - yarn dev 또는 yarn server // run compiled javascript
+ - yarn build // compile ts files
+ - yarn dev 또는 yarn server // run compiled js files
 ```
 
 ### Test
@@ -74,4 +74,4 @@ Node 16 혹은 그 이상의 버전을 필요로 합니다.
 yarn 으로 필요한 패키지 설치 진행 후 <br />
 http://localhost:4000/swagger 주소 입력
 
-![image](https://media.discordapp.net/attachments/885202056355397686/950344083602276413/unknown.png?width=549&height=549)
+![image](https://user-images.githubusercontent.com/81504356/157035380-dd245673-7fd9-4ae1-9afc-8319a9035c71.png)
