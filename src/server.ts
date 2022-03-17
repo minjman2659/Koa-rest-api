@@ -8,7 +8,7 @@ import * as swagger from 'swagger2';
 import { ui } from 'swagger2-koa';
 
 import db from 'database';
-import api from 'router';
+import api from 'routes';
 import logger from 'lib/logger';
 import imagesDir from 'lib/images-dir';
 import { consumeToken, errorHandler } from 'middleware';
