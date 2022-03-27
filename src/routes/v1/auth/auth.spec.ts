@@ -54,14 +54,50 @@ describe('/api/v1/auth', () => {
         const errorMessage = { message: 'throw User.findOne error' };
         User.findOne = jest.fn().mockRejectedValue(errorMessage);
         await register(ctx);
-        expect(ctx.throw).toHaveBeenCalledWith(errorMessage);
+        expect(ctx.status).toBe(500);
       });
       it('should handle error: User.register', async () => {
         const errorMessage = { message: 'throw User.register error' };
         User.findOne = jest.fn().mockResolvedValue(null);
         User.register = jest.fn().mockRejectedValue(errorMessage);
         await register(ctx);
-        expect(ctx.throw).toHaveBeenCalledWith(errorMessage);
+        expect(ctx.status).toBe(500);
+      });
+    });
+  });
+  describe('[GET] /checkEmail', () => {
+    let existedUser: any = null;
+    beforeEach(async () => {
+      const { user } = await mockUser();
+      existedUser = user;
+      ctx.params = { email: user.email };
+    });
+    describe('[Success]', () => {
+      it('should hava a checkEmail function', () => {
+        expect(typeof checkEmail).toBe('function');
+      });
+      it('should return 200 ststus code in response', async () => {
+        User.checkEmail = jest.fn().mockResolvedValue(false);
+        await checkEmail(ctx);
+        expect(ctx.status).toBe(200);
+      });
+    });
+    describe('[Failure]', () => {
+      it('should return 400 status code in response', async () => {
+        ctx.params.email = null;
+        await checkEmail(ctx);
+        expect(ctx.status).toBe(400);
+      });
+      it('should return 409 status code in response', async () => {
+        User.checkEmail = jest.fn().mockResolvedValue(true);
+        await checkEmail(ctx);
+        expect(ctx.status).toBe(409);
+      });
+      it('should handle error: User.checkEmail', async () => {
+        const errorMessage = { message: 'throw User.checkEmail error' };
+        User.checkEmail = jest.fn().mockRejectedValue(errorMessage);
+        await checkEmail(ctx);
+        expect(ctx.status).toBe(500);
       });
     });
   });
@@ -95,7 +131,7 @@ describe('/api/v1/auth', () => {
         const errorMessage = { message: 'throw User.findOne' };
         User.findOne = jest.fn().mockRejectedValue(errorMessage);
         await login(ctx);
-        expect(ctx.throw).toHaveBeenCalledWith(errorMessage);
+        expect(ctx.status).toBe(500);
       });
       it('should return 404 status code in response', async () => {
         User.findOne = jest.fn().mockResolvedValue(null);
@@ -115,7 +151,7 @@ describe('/api/v1/auth', () => {
           throw error;
         });
         await login(ctx);
-        expect(ctx.throw).toHaveBeenCalledWith(error);
+        expect(ctx.status).toBe(500);
       });
     });
   });

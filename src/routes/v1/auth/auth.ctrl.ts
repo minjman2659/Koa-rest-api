@@ -26,7 +26,9 @@ export default class AuthCtrl {
         where: { email },
       });
     } catch (err) {
-      ctx.throw(500, err);
+      ctx.status = 500;
+      ctx.body = err.message;
+      return;
     }
 
     if (existedUser) {
@@ -52,7 +54,9 @@ export default class AuthCtrl {
       ctx.status = 201;
     } catch (err) {
       await t.rollback();
-      ctx.throw(500, err);
+      ctx.status = 500;
+      ctx.body = err.message;
+      return;
     }
   };
 
@@ -77,7 +81,9 @@ export default class AuthCtrl {
 
       ctx.status = 200;
     } catch (err) {
-      ctx.throw(500, err);
+      ctx.status = 500;
+      ctx.body = err.message;
+      return;
     }
   };
 
@@ -99,7 +105,9 @@ export default class AuthCtrl {
         where: { email },
       });
     } catch (err) {
-      ctx.throw(500, err);
+      ctx.status = 500;
+      ctx.body = err.message;
+      return;
     }
 
     if (!user) {
@@ -122,7 +130,9 @@ export default class AuthCtrl {
       ctx.status = 200;
       ctx.body = user.toRes();
     } catch (err) {
-      ctx.throw(500, err);
+      ctx.status = 500;
+      ctx.body = err.message;
+      return;
     }
   };
 

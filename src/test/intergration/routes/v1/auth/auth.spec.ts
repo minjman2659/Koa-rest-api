@@ -46,7 +46,7 @@ describe('/api/v1/auth', () => {
       .post('/api/v1/auth/login')
       .send({ email, password: 'password' });
 
-    expect(validateSchema(loginSchema, body));
+    expect(validateSchema(loginSchema, body)).toBe(true);
     expect(statusCode).toBe(200);
   });
   it('[POST] /logout', async () => {
