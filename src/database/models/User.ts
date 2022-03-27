@@ -20,7 +20,7 @@ function hash(password: string): string {
 
 export default (sequelize: any, DataTypes: any) => {
   class User extends Sequelize.Model<IUser> implements IUser {
-    id: string;
+    id: number;
     email: string;
     username: string;
     password: string;
@@ -72,8 +72,8 @@ export default (sequelize: any, DataTypes: any) => {
   User.init(
     {
       id: {
-        type: DataTypes.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
       },
       email: { type: DataTypes.STRING, unique: true },

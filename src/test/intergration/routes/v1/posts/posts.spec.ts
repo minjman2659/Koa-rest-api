@@ -13,13 +13,13 @@ const { app } = server;
 const appTest = request(http.createServer(app.callback()));
 
 interface IPost extends IPostBody {
-  id: string;
+  id: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 interface IUser extends IRegisterBody {
-  id: string;
+  id: number;
   createdAt?: Date;
   updatedAt?: Date;
 }

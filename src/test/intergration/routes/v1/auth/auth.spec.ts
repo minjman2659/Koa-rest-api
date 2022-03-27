@@ -12,7 +12,7 @@ const { app } = server;
 const appTest = request(http.createServer(app.callback()));
 
 interface IUser extends IRegisterBody {
-  id: string;
+  id: number;
   createdAt?: Date;
   updatedAt?: Date;
 }

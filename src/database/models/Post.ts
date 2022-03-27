@@ -3,8 +3,8 @@ import { IPost } from 'types/post';
 
 export default (sequelize: any, DataTypes: any) => {
   class Post extends Sequelize.Model<IPost> implements IPost {
-    id: string;
-    userId: string;
+    id: number;
+    userId: number;
     title: string;
     content: string;
     thumbnail: string;
@@ -21,12 +21,12 @@ export default (sequelize: any, DataTypes: any) => {
   Post.init(
     {
       id: {
-        type: DataTypes.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
         allowNull: false,
       },
-      userId: { type: DataTypes.UUID },
+      userId: { type: DataTypes.INTEGER },
       title: { type: DataTypes.STRING(100) },
       content: { type: DataTypes.TEXT },
       thumbnail: { type: DataTypes.STRING },

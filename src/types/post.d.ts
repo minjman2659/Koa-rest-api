@@ -5,6 +5,6 @@ export interface IPostBody {
 }
 
 export interface IPost extends IPostBody {
-  id?: string;
-  userId: string;
+  id?: number;
+  userId: number;
 }

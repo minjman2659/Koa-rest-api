@@ -8,6 +8,6 @@ export interface IRegisterBody extends ILoginBody {
 }
 
 export interface IUser extends IRegisterBody {
-  id?: string;
+  id?: number;
   transaction?: any;
 }

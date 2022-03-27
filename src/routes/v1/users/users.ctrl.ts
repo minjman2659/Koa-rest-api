@@ -6,7 +6,7 @@ const { User } = db;
 export default class UserCtrl {
   static getUser = async (ctx: Context) => {
     const { userId } = ctx.params;
-    if (!userId) {
+    if (!Number(userId)) {
       ctx.status = 400;
       ctx.body = 'BAD_REQUEST';
       return;

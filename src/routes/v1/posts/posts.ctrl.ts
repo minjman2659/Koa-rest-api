@@ -81,7 +81,7 @@ export default class PostCtrl {
 
   static getPost = async (ctx: Context) => {
     const { postId } = ctx.params;
-    if (!postId) {
+    if (!Number(postId)) {
       ctx.status = 400;
       ctx.body = 'BAD_REQUEST';
       return;
@@ -118,7 +118,7 @@ export default class PostCtrl {
 
   static updatePost = async (ctx: Context) => {
     const { postId } = ctx.params;
-    if (!postId) {
+    if (!Number(postId)) {
       ctx.status = 400;
       ctx.body = 'BAD_REQUEST';
       return;
@@ -172,7 +172,7 @@ export default class PostCtrl {
 
   static deletePost = async (ctx: Context) => {
     const { postId } = ctx.params;
-    if (!postId) {
+    if (!Number(postId)) {
       ctx.status = 400;
       ctx.body = 'BAD_REQUEST';
       return;

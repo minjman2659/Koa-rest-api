@@ -10,7 +10,7 @@ const { Post } = db;
 const { createPost, getPostList, getPost, updatePost, deletePost } = PostCtrl;
 
 interface IUser extends IRegisterBody {
-  id: string;
+  id: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -111,15 +111,14 @@ describe('/api/v1/posts', () => {
     });
     describe('[Failure]', () => {
       it('should return 400 status code in response', async () => {
-        ctx.params.postId = null;
+        ctx.params = { postId: null };
         await getPost(ctx);
         expect(ctx.status).toBe(400);
       });
       it('should return 404 status code in response', async () => {
-        ctx.params = { postId: '280a8a4d-a27f-4d01-b031-2a003cc4c039' };
-        console.log(ctx.params);
+        Post.findOne = jest.fn().mockReturnValue(null);
         await getPost(ctx);
-        expect(ctx.status).toBe(200);
+        expect(ctx.status).toBe(404);
       });
       it('should handle error: Post.findOne', async () => {
         const errorMessage = {
@@ -158,9 +157,9 @@ describe('/api/v1/posts', () => {
           expect(ctx.status).toBe(400);
         });
         it('should return 404 status code in response', async () => {
-          ctx.params.postId = -1;
+          Post.findOne = jest.fn().mockReturnValue(null);
           await updatePost(ctx);
-          expect(ctx.status).toBe(200);
+          expect(ctx.status).toBe(404);
         });
         it('should handle error: Post.findOne', async () => {
           const errorMessage = {
@@ -203,9 +202,9 @@ describe('/api/v1/posts', () => {
           expect(ctx.status).toBe(400);
         });
         it('should return 404 status code in response', async () => {
-          ctx.params.postId = -1;
+          Post.findOne = jest.fn().mockReturnValue(null);
           await deletePost(ctx);
-          expect(ctx.status).toBe(200);
+          expect(ctx.status).toBe(404);
         });
         it('should handle error: Post.findOne error', async () => {
           const errorMessage = {
