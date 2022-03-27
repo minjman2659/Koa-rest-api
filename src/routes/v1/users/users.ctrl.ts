@@ -19,9 +19,14 @@ export default class UserCtrl {
         ctx.body = 'NOT_FOUND_USER';
         return;
       }
+
+      ctx.status = 200;
       ctx.body = user.toRes();
     } catch (err) {
-      ctx.throw(500, err);
+      // ctx.throw(500, err);
+      ctx.status = 500;
+      ctx.body = err.message;
+      return;
     }
   };
 }

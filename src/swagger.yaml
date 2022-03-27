@@ -76,8 +76,8 @@ paths:
                 type: object
                 properties:
                   id:
-                    format: uuid
-                    example: '7682de9a-4703-4b47-8b26-2d093e46ecc5'
+                    type: integer
+                    example: 1
                   email:
                     type: string
                     example: 'test@gmail.com'
@@ -160,8 +160,8 @@ paths:
                       type: object
                       properties:
                         id:
-                          format: uuid
-                          example: '7682de9a-4703-4b47-8b26-2d093e46ecc5'
+                          type: integer
+                          example: 1
                         title:
                           type: string
                           example: '제목 테스트'
@@ -181,8 +181,8 @@ paths:
                           type: object
                           properties:
                             id:
-                              format: uuid
-                              example: '9def2537-8a86-48f6-9135-3fef9633a81c'
+                              type: integer
+                              example: 1
                             username:
                               type: string
                               example: '홍길동'
@@ -205,7 +205,7 @@ paths:
           description: '조회할 포스트의 id'
           required: true
           schema:
-            format: uuid
+            type: integer
       responses:
         '200':
           description: 'OK'
@@ -215,8 +215,8 @@ paths:
                 type: object
                 properties:
                   id:
-                    format: uuid
-                    example: '7682de9a-4703-4b47-8b26-2d093e46ecc5'
+                    type: integer
+                    example: 1
                   title:
                     type: string
                     example: '제목 테스트'
@@ -236,8 +236,8 @@ paths:
                     type: object
                     properties:
                       id:
-                        format: uuid
-                        example: '9def2537-8a86-48f6-9135-3fef9633a81c'
+                        type: integer
+                        example: 1
                       username:
                         type: string
                         example: '홍길동'
@@ -258,7 +258,7 @@ paths:
           description: '수정할 포스트의 id'
           required: true
           schema:
-            format: uuid
+            type: integer
       requestBody:
         content:
           application/json:
@@ -291,7 +291,7 @@ paths:
           description: '삭제할 포스트의 id'
           required: true
           schema:
-            format: uuid
+            type: integer
       responses:
         '200':
           description: 'OK'
@@ -310,7 +310,7 @@ paths:
           description: '조회할 유저의 id'
           required: true
           schema:
-            format: uuid
+            type: integer
       responses:
         '200':
           description: 'OK'
@@ -320,8 +320,8 @@ paths:
                 type: object
                 properties:
                   id:
-                    format: uuid
-                    example: '9def2537-8a86-48f6-9135-3fef9633a81c'
+                    type: integer
+                    example: 1
                   email:
                     type: string
                     example: 'test@gmail.com'

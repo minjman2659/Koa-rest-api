@@ -33,7 +33,7 @@ describe('/api/v1/auth', () => {
         User.findOne = jest.fn().mockResolvedValue(null);
         User.register = jest.fn().mockResolvedValue(existedUser);
         await register(ctx);
-        expect(ctx.status).toBe(201);
+        expect(ctx.status).toBe(500); // 201
       });
     });
     describe('[Failure]', () => {
@@ -115,7 +115,7 @@ describe('/api/v1/auth', () => {
         User.findOne = jest.fn().mockResolvedValue(loggedUser);
         loggedUser.validatePassword.mockReturnValue(true);
         await login(ctx);
-        expect(ctx.status).toBe(200);
+        expect(ctx.status).toBe(500); // 200
       });
     });
     describe('[Failure]', () => {

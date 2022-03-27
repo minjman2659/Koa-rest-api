@@ -3,6 +3,7 @@
 const testModulePath = [
   '**/auth/*',
   '**/posts/*',
+  '**/users/*',
   // Add something
 ];
 
