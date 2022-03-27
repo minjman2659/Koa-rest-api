@@ -26,7 +26,7 @@ export default class PostCtrl {
         title,
         content,
         thumbnail,
-        fkUserId: userId,
+        userId,
       });
     } catch (err) {
       ctx.throw(500, err);
@@ -53,7 +53,7 @@ export default class PostCtrl {
         offset,
         limit: Number(limit),
         order: [['createdAt', 'DESC']],
-        attributes: { exclude: ['fkUserId'] },
+        attributes: { exclude: ['userId'] },
         include: [
           {
             model: User,
@@ -87,7 +87,7 @@ export default class PostCtrl {
     try {
       post = await Post.findOne({
         where: { id: postId },
-        attributes: { exclude: ['fkUserId'] },
+        attributes: { exclude: ['userId'] },
         include: [
           {
             model: User,
@@ -134,7 +134,7 @@ export default class PostCtrl {
     let post = null;
     try {
       post = await Post.findOne({
-        where: { id: postId, fkUserId: userId },
+        where: { id: postId, userId },
       });
     } catch (err) {
       ctx.throw(500, err);
@@ -170,7 +170,7 @@ export default class PostCtrl {
     let post = null;
     try {
       post = await Post.findOne({
-        where: { id: postId, fkUserId: userId },
+        where: { id: postId, userId },
       });
     } catch (err) {
       ctx.throw(500, err);

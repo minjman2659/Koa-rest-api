@@ -1,5 +1,8 @@
-import { sequelize } from 'database';
+import models, { sequelize } from 'database';
 
-export default function sync() {
-  sequelize.sync();
-}
+const sync = () => {
+  models;
+  sequelize.sync({ force: true });
+};
+
+export default sync;

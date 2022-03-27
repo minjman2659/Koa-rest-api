@@ -11,7 +11,9 @@
     "build": "tsc",
     "dev": "cross-env NODE_PATH=build nodemon build/index.js --watch ./build",
     "server": "cross-env NODE_PATH=build nodemon build/index.js",
-    "test": "jest --runInBand --detectOpenHandles --watchAll"
+    "test": "jest --runInBand --detectOpenHandles --watchAll",
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:sync": "NODE_PATH=./src ts-node ./scripts/db-sync.ts"
   },
   "dependencies": {
     "@koa/cors": "^3.1.0",

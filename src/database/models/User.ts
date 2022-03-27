@@ -33,7 +33,7 @@ export default (sequelize: any, DataTypes: any) => {
     toRes: () => any[];
     static associate(models: any) {
       User.hasMany(models.Post, {
-        foreignKey: 'fkUserId',
+        foreignKey: 'userId',
         as: 'posts',
       });
     }

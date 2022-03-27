@@ -4,13 +4,13 @@ import { IPost } from 'types/post';
 export default (sequelize: any, DataTypes: any) => {
   class Post extends Sequelize.Model<IPost> implements IPost {
     id: string;
-    fkUserId: string;
+    userId: string;
     title: string;
     content: string;
     thumbnail: string;
     static associate(models: any) {
       Post.belongsTo(models.User, {
-        foreignKey: 'fkUserId',
+        foreignKey: 'userId',
         as: 'writer',
         onDelete: 'CASCADE',
         onUpdate: 'RESTRICT',
@@ -26,10 +26,7 @@ export default (sequelize: any, DataTypes: any) => {
         primaryKey: true,
         allowNull: false,
       },
-      fkUserId: {
-        type: DataTypes.UUID,
-        field: 'userId',
-      },
+      userId: { type: DataTypes.UUID },
       title: { type: DataTypes.STRING(100) },
       content: { type: DataTypes.TEXT },
       thumbnail: { type: DataTypes.STRING },

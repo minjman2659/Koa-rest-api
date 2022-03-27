@@ -6,5 +6,5 @@ export interface IPostBody {
 
 export interface IPost extends IPostBody {
   id?: string;
-  fkUserId: string;
+  userId: string;
 }
