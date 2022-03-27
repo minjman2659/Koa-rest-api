@@ -29,7 +29,9 @@ export default class PostCtrl {
         userId,
       });
     } catch (err) {
-      ctx.throw(500, err);
+      ctx.status = 500;
+      ctx.body = err.message;
+      return;
     }
 
     ctx.status = 201;
@@ -71,7 +73,9 @@ export default class PostCtrl {
       ctx.status = 200;
       ctx.body = result;
     } catch (err) {
-      ctx.throw(500, err);
+      ctx.status = 500;
+      ctx.body = err.message;
+      return;
     }
   };
 
@@ -97,7 +101,9 @@ export default class PostCtrl {
         ],
       });
     } catch (err) {
-      ctx.throw(500, err);
+      ctx.status = 500;
+      ctx.body = err.message;
+      return;
     }
 
     if (!post) {
@@ -137,7 +143,9 @@ export default class PostCtrl {
         where: { id: postId, userId },
       });
     } catch (err) {
-      ctx.throw(500, err);
+      ctx.status = 500;
+      ctx.body = err.message;
+      return;
     }
 
     if (!post) {
@@ -147,13 +155,18 @@ export default class PostCtrl {
     }
 
     try {
-      post.title = title;
-      post.content = content;
-      post.thumbnail = thumbnail;
-      await post.save();
+      const updateArgs = {
+        title,
+        content,
+        thumbnail,
+      };
+
+      await post.update(updateArgs);
       ctx.status = 200;
     } catch (err) {
-      ctx.throw(500, err);
+      ctx.status = 500;
+      ctx.body = err.message;
+      return;
     }
   };
 
@@ -173,7 +186,9 @@ export default class PostCtrl {
         where: { id: postId, userId },
       });
     } catch (err) {
-      ctx.throw(500, err);
+      ctx.status = 500;
+      ctx.body = err.message;
+      return;
     }
 
     if (!post) {
@@ -186,7 +201,9 @@ export default class PostCtrl {
       await post.destroy();
       ctx.status = 200;
     } catch (err) {
-      ctx.throw(500, err);
+      ctx.status = 500;
+      ctx.body = err.message;
+      return;
     }
   };
 }

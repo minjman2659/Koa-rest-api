@@ -2,6 +2,7 @@
 
 const testModulePath = [
   '**/auth/*',
+  '**/posts/*',
   // Add something
 ];
 

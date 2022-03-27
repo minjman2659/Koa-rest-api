@@ -14,10 +14,7 @@ User.register = null;
 User.checkEmail = null;
 
 beforeEach(() => {
-  User.findOne = jest.fn();
-  User.register = jest.fn();
   ctx.request = httpMocks.createRequest();
-  ctx.response = httpMocks.createResponse();
 });
 
 describe('/api/v1/auth', () => {
