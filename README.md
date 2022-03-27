@@ -48,8 +48,23 @@ POSTGRES_PW=somethings // 데이터베이스 관리자 비밀번호
 Node 16 혹은 그 이상의 버전을 필요로 합니다.
 
 ```javascript
- - yarn // install dependencies
- - yarn start 또는 yarn start:dev // run server
+ $ yarn // install dependencies
+ $ yarn start 또는 $ yarn start:dev // run server
+```
+
+### Database
+
+Sequelize 마이그레이션
+
+```javascript
+ $ npx sequelize-cli migration:generate --name <name> // create migration file using sequelize cli
+ $ yarn db:migrate // running migrations
+```
+
+Sync Database
+
+```javascript
+ $ yarn db:sync // sync database
 ```
 
 ### Build
@@ -57,14 +72,14 @@ Node 16 혹은 그 이상의 버전을 필요로 합니다.
 타입스크립트 컴파일링
 
 ```javascript
- - yarn build // compile ts files
- - yarn dev 또는 yarn server // run compiled js files
+ $ yarn build // compile ts files
+ $ yarn dev 또는 $ yarn server // run compiled js files
 ```
 
 ### Test
 
 ```javascript
- - yarn test // run jest
+ $ yarn test // run jest
 ```
 
 <br />
