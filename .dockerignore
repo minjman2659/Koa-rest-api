@@ -1,0 +1,5 @@
+node_modules
+build
+coverage
+logs
+./src/database/config/sequelize-cli.json

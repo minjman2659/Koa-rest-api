@@ -49,7 +49,8 @@ Node 16 혹은 그 이상의 버전을 필요로 합니다.
 
 ```javascript
  $ yarn // install dependencies
- $ yarn start 또는 $ yarn start:dev // run server
+ $ yarn start:prod // run server in production
+ $ yarn start:dev // run server in development
 ```
 
 ### Database

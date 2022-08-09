@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: koa_db
+    image: postgres:12
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgres/data
+    env_file:
+      - .env.production
+    environment:
+      POSTGRES_DB: koa_db
+      POSTGRES_USER: minjman
+      POSTGRES_PASSWORD: minjman
+
+  backend:
+    container_name: koa_rest_api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: minjman/koa-rest-api
+    restart: always
+    ports:
+      - '8082:8082'
+    depends_on:
+      - postgres
+    command: sh -c "yarn db:migrate && yarn start:prod"
+
+volumes:
+  db_data:
