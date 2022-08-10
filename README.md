@@ -85,6 +85,26 @@ Sync Database
 
 <br />
 
+## 🐋 Docker
+
+### Docker Compose
+
+Postgres DB와 Koa-rest-api를 컨테이너로 실행 _ 이미지 빌드도 함께 진행 (docker-compose.yml 참고)
+
+```javascript
+ $ docker compose up
+```
+
+### Docker Build (Make Image)
+
+koa-rest-api 이미지 빌드 (Dockerfile 참고)
+
+```javascript
+ $ docker build -t minjman/koa-rest-api .
+```
+
+<br />
+
 ## 📋 API 명세서
 
 yarn 으로 필요한 패키지 설치 진행 후 <br />
