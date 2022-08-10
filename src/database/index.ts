@@ -1,12 +1,14 @@
 import { Sequelize } from 'sequelize';
 
-const { POSTGRES_DATABASE, POSTGRES_USER, POSTGRES_PW } = process.env;
+const { POSTGRES_DATABASE, POSTGRES_USER, POSTGRES_PW, POSTGRES_HOST } =
+  process.env;
 
 export const sequelize = new Sequelize(
   POSTGRES_DATABASE,
   POSTGRES_USER,
   POSTGRES_PW,
   {
+    host: POSTGRES_HOST,
     dialect: 'postgres',
     logging: false,
     port: 5432,

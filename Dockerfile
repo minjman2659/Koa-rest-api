@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 ## 필요한 라이브러리들 설치 후 빌드 진행
-RUN yarn global add sequelize-cli nodemon
+RUN yarn global add sequelize-cli nodemon cross-env
 RUN yarn add ts-node typescript koa @types/koa jest @types/jest ts-jest
 RUN yarn
 

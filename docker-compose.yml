@@ -21,6 +21,8 @@ services:
       dockerfile: ./Dockerfile
     image: minjman/koa-rest-api
     restart: always
+    env_file:
+      - .env.production
     ports:
       - '8082:8082'
     depends_on:
