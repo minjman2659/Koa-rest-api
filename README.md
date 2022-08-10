@@ -13,7 +13,7 @@ NodeJS의 프레임워크 Koa를 활용한 REST API <br />
 
 ## 💻 기술 스택
 
-Koa, Typescript, Sequelize, PostgreSQL, JWT, Jest, Swagger
+Koa, Typescript, Sequelize, PostgreSQL, JWT, Jest, Swagger, Docker
 
 <br />
 
